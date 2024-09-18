@@ -182,6 +182,27 @@ The `tokenize_shuffle.py` script creates a dataset in `webdataset` format, along
 python -m open_lm.utils.make_wds_manifest --data-dir <tokenized_data_dir>
 ```
 
+### Cloudlab
+Here, we show the steps in detail.
+1. **Download Dataset from S3**: use AWS CLI
+2. **Start Ray Cluster**: use the following command:
+    ```bash
+    ray start --head --port 6379
+    ```
+3. **Run the tokenize and shuffle script**:
+    ```bash
+    mkdir dclm_output
+    export PYTHONPATH=/users/Master/dclm-shape:$PYTHONPATH
+    python ray_processing/tokenize_shuffle.py --input /users/Master/dclm-data-sample/ --readable_name dclm_shard --output dclm_output --content_key text
+    ```
+    where /users/Master/dclm-data-sample/ contains the data downloaded from AWS S3. Run all commands under "dclm-shape" directory.
+4. **Tear down**: Tear down the Ray cluster as in the processing step.
+5. The `tokenize_shuffle.py` script creates a dataset in `webdataset` format, along with a `manifest.jsonl` file. This file is required by the training script, and it contains information on the number of sequences inside each shard of the dataset. If needed, this manifest file can also be created manually, via the following command:
+
+```bash
+python -m open_lm.utils.make_wds_manifest --data-dir dclm_output
+```
+
 ## Model Training
 To train a model using the tokenized dataset:
 

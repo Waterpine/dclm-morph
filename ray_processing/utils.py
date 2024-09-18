@@ -31,8 +31,15 @@ def get_source_ref(source_ref_path):
         return json.load(file)
 
 
-def count_tokens(manifest_url, seqlen=2049):
+def count_tokens_s3(manifest_url, seqlen=2049):
     with S3Path(manifest_url).open("r") as f:
+        manifest = [json.loads(line) for line in f]
+    num_tokens = sum(int(line["num_sequences"]) for line in manifest) * seqlen
+    return num_tokens
+
+
+def count_tokens(manifest_url, seqlen=2049):
+    with open(manifest_url, 'r') as f:
         manifest = [json.loads(line) for line in f]
     num_tokens = sum(int(line["num_sequences"]) for line in manifest) * seqlen
     return num_tokens
@@ -99,9 +106,9 @@ def generate_tokenized_dataset_json(args, source_refs, data_key="json.gz"):
         "tokenized": True,
         "tokenizer": args.tokenizer,
         "num_tokens": count_tokens(manifest_url, args.seqlen + 1),
-        "size": get_s3_dir_size(args.output),
-        "dcnlp_commit_hash": dcnlp_commit_hash,
-        "dcnlp_diff": dcnlp_diff,
+        # "size": get_s3_dir_size(args.output),
+        # "dcnlp_commit_hash": dcnlp_commit_hash,
+        # "dcnlp_diff": dcnlp_diff,
         "data_key": data_key,
         "sampling_yaml": sampling_yaml,
     }
