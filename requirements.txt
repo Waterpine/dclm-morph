@@ -15,7 +15,7 @@ sentencepiece
 kenlm
 langdetect
 retrie
-https://github.com/kpu/kenlm/archive/master.zip
+https://github.com/Waterpine/kenlm/archive/master.zip
 justext
 lxml
 cloudpathlib
