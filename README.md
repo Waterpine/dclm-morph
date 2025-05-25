@@ -40,7 +40,7 @@ We show an example here to explain how to preprocess DCLM dataset.
     ```bash
     mkdir dclm_output
     export PYTHONPATH=/users/xxx/dclm-shape:$PYTHONPATH
-    python ray_processing/tokenize_shuffle.py --input /users/Master/dclm-data-sample/ --readable_name dclm_shard --output dclm_output --content_key text
+    python ray_processing/tokenize_shuffle.py --input /users/xxx/dclm-data-sample/ --readable_name dclm_shard --output dclm_output --content_key text
     ```
     where /users/xxx/dclm-data-sample/ contains the data downloaded from AWS S3 or Hugging Face. Run all commands under "dclm-shape" directory.
 4. **Tear down**: Tear down the Ray cluster as in the processing step.
