@@ -8,8 +8,8 @@ To get started with DCLM-Morph, follow these steps:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/mlfoundations/DCLM.git
-    cd DCLM
+    git clone https://github.com/Waterpine/dclm-morph.git
+    cd dclm-morph
     ```
 
 2. **Install dependencies**:
