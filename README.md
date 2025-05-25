@@ -27,7 +27,7 @@ We recommend the use of Python 3.10 with DCLM.
 
 
 ## Example
-We show an example here to explain how to preprocess DCLM dataset.
+We show an example here, by using [Cloudlab](https://www.cloudlab.us/) machine, to explain how to preprocess DCLM dataset.
 
 1. **Download Dataset**: 
    1. use AWS CLI to download dataset from S3. 
@@ -42,7 +42,9 @@ We show an example here to explain how to preprocess DCLM dataset.
     export PYTHONPATH=/users/xxx/dclm-shape:$PYTHONPATH
     python ray_processing/tokenize_shuffle.py --input /users/xxx/dclm-data-sample/ --readable_name dclm_shard --output dclm_output --content_key text
     ```
-    where /users/xxx/dclm-data-sample/ contains the data downloaded from AWS S3 or Hugging Face. Run all commands under "dclm-shape" directory.
+    where /users/xxx/dclm-data-sample/ contains the data downloaded from AWS S3 or Hugging Face.
+    
+    The /users/xxx/dclm-data-sample/ directory contains files such as ``shard_00000001_processed.jsonl.zstd`` or ``shard_00000001_processed.jsonl.zst``
 4. **Tear down**: Tear down the Ray cluster as in the processing step.
 5. The `tokenize_shuffle.py` script creates a dataset in `webdataset` format, along with a `manifest.jsonl` file. This file is required by the training script, and it contains information on the number of sequences inside each shard of the dataset. If needed, this manifest file can also be created manually, via the following command:
 
